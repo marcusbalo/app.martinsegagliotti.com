@@ -1,0 +1,37 @@
+name: martinsegagliotti
+description: An app to doctors and hospitals.
+
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  open_file:
+  file_picker:
+  multi_image_picker:
+  dio:
+  image_picker:
+  flutter_absolute_path:
+  photo_view:
+  flutter_form_builder:
+  get_it:
+  searchable_dropdown:
+  cached_network_image:
+  shared_preferences:
+  path_provider:
+  path:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/images/
+  uses-material-design: true
