@@ -18,6 +18,11 @@ class GalleryPage extends StatefulWidget {
 
 class _GalleryPageState extends State<GalleryPage> {
   int actualImageIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    print(widget.imageList[0]);
+  }
 
   List<Widget> imagesBottomCounter(int length) {
     List<Widget> display = [];

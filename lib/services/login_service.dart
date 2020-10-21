@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Dio dio = Dio();
 
-const url = 'http://sistema.martinsegagliotti.com.br';
+const url = 'http://hostmgm:8888';
 
 class LoginService {
   static Future<bool> auth({String user, String password}) async {

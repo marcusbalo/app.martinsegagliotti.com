@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:martinsegagliotti/services/image_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const url = 'http://sistema.martinsegagliotti.com.br';
+const url = 'http://hostmgm:8888';
 
 int backgroundtask(List items) {
   int index = items[0].indexWhere(

@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:martinsegagliotti/services/offline_service.dart';
 import 'login_service.dart';
 
-const url = 'http://sistema.martinsegagliotti.com.br';
+const url = 'http://hostmgm:8888';
 
 Dio dio = Dio(BaseOptions(connectTimeout: 5 * 1000));
 

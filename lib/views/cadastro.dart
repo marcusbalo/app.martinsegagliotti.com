@@ -404,16 +404,18 @@ class _CadastroState extends State<Cadastro> {
         if ((resposta?.statusCode == 200 ?? false) &&
             (resposta?.data['status'] == 'success' ?? false)) {
           Navigator.of(context).pop();
-          lancamentoEnviadoComSucesso(
-                  context, (isediting) ? 'Atualizado!' : 'Cadastro efetuado!')
-              .then((value) => Navigator.of(context).pop());
+          statusmessage(
+            context,
+            Icon(Icons.warning),
+            (isediting) ? 'Atualizado!' : 'Cadastro efetuado!',
+          ).then((value) => Navigator.of(context).pop());
         } else {
           Navigator.of(context).pop();
-          lancamentoFalhouNoEnvio(
-              context,
-              (isediting)
-                  ? 'Erro ao atualizar!'
-                  : 'Erro ao efeturar cadastro!');
+          statusmessage(
+            context,
+            Icon(Icons.warning),
+            (isediting) ? 'Erro ao atualizar!' : 'Erro ao efeturar cadastro!',
+          );
         }
       }
     };

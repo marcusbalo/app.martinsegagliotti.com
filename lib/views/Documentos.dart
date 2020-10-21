@@ -44,7 +44,7 @@ class _DocumentosState extends State<Documentos> {
       String token = await LoginService.token;
 
       await dio.download(
-        'http://sistema.martinsegagliotti.com.br/api/files/download/$id',
+        'http://hostmgm:8888/api/files/download/$id',
         savepath,
         options: Options(
             responseType: ResponseType.bytes,

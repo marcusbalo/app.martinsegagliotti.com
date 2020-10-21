@@ -4,7 +4,7 @@ import 'package:martinsegagliotti/services/image_helper.dart';
 import 'package:martinsegagliotti/services/login_service.dart';
 import 'package:martinsegagliotti/services/offline_service.dart';
 
-const url = 'http://sistema.martinsegagliotti.com.br';
+const url = 'http://hostmgm:8888';
 
 class UploadHelperService {
   Map<String, dynamic> corpo = {};

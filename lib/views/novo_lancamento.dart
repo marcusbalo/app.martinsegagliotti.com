@@ -259,12 +259,14 @@ class _NovoLancamentoState extends State<NovoLancamento>
                               var tipo = _fbKey.currentState.value['tipo'];
                               if (tipo == 'CIRPS' || tipo == 'CIRELT') {
                                 if (instance.arquivos.length < 1) {
-                                  lancamentoFalhouNoEnvio(
-                                      context, 'Falta descrição cirúrgica');
+                                  statusmessage(
+                                    context,
+                                    Icon(Icons.warning),
+                                    'Falta descrição cirúrgica!',
+                                  );
                                   return;
                                 }
                               }
-
                               showDialog(
                                 barrierDismissible: false,
                                 context: context,
@@ -281,13 +283,32 @@ class _NovoLancamentoState extends State<NovoLancamento>
                               if (response == 3) {
                                 Navigator.of(context).pop();
                                 if (isediting) {
-                                  lancamentoFalhouNoEnvio(context);
+                                  statusmessage(
+                                    context,
+                                    Icon(Icons.warning),
+                                    'Falha ao enviar lançamento!',
+                                  );
                                 } else {
-                                  lancamentoSalvo(context);
+                                  statusmessage(
+                                    context,
+                                    Icon(
+                                      Icons.save,
+                                      color: Colors.blue[300],
+                                    ),
+                                    'Salvo em rascunhos',
+                                  );
                                 }
                               } else if (response == 1) {
                                 Navigator.of(context).pop();
-                                lancamentoEnviadoComSucesso(context);
+                                statusmessage(
+                                  context,
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green[300],
+                                  ),
+                                  'Lançamento enviado com sucesso!',
+                                );
+                                ;
                                 if (isediting) {
                                   (await OfflineService.instance())
                                       .removerRascunhoPeloId(
@@ -295,7 +316,11 @@ class _NovoLancamentoState extends State<NovoLancamento>
                                 }
                               } else {
                                 Navigator.of(context).pop();
-                                lancamentoFalhouNoEnvio(context);
+                                statusmessage(
+                                  context,
+                                  Icon(Icons.warning),
+                                  'Falha ao enviar lançamento!',
+                                );
                               }
                             }
                           }, context),
@@ -525,25 +550,21 @@ searchFuntion(list) {
   };
 }
 
-Future<void> lancamentoFalhouNoEnvio(BuildContext context,
-    [text = 'Falha no envio']) {
+Future<void> statusmessage(BuildContext context, Icon icon, String message,
+    [Function callback]) {
   return showDialog(
     context: context,
     child: Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.error_outline,
-            color: Colors.red[300],
-            size: Responsive.width(20),
-          ),
+          icon,
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Material(
               color: Colors.transparent,
               child: Text(
-                text,
+                message,
                 style: TextStyle(
                     color: Colors.white, fontSize: Responsive.width(6)),
               ),
@@ -552,68 +573,7 @@ Future<void> lancamentoFalhouNoEnvio(BuildContext context,
         ],
       ),
     ),
-  );
-}
-
-Future<void> lancamentoEnviadoComSucesso(BuildContext context,
-    [text = 'Enviado com sucesso!']) {
-  return showDialog(
-    context: context,
-    child: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.check_circle,
-            color: Colors.green[300],
-            size: Responsive.width(20),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Material(
-              color: Colors.transparent,
-              child: Text(
-                text,
-                style: TextStyle(
-                    color: Colors.white, fontSize: Responsive.width(6)),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ).then((_) {
-    if (!(text != 'Enviado com sucesso!')) {
-      Navigator.of(context).pushReplacementNamed('/dashboard');
-    }
+  ).then((value) {
+    if (callback != null) callback(value);
   });
-}
-
-lancamentoSalvo(BuildContext context) {
-  showDialog(
-    context: context,
-    child: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.save,
-            color: Colors.blue[400],
-            size: Responsive.width(20),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Material(
-              color: Colors.transparent,
-              child: Text(
-                'Salvo em rascunhos!',
-                style: TextStyle(
-                    color: Colors.white, fontSize: Responsive.width(6)),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ).then((value) => Navigator.of(context).pushNamed('/dashboard'));
 }
